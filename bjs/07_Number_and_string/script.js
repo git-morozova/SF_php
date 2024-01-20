@@ -1,15 +1,12 @@
-// убрать округление до целого
-
 let lastOperand = 0;
 let operation = null;
 
 const inputWindow = document.getElementById('inputWindow');
-//console.log(typeof(inputWindow.value));
+//console.log(inputWindow.value);
 
 
 /* запрещаем вводить в поле что-либо, кроме цифр */
 function filterField(e) { 
-    // e.target.value = e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, '');
      e.target.value = e.target.value.replace(/[A-Za-zА-Яа-яЁё^\s()-+]/, '');
    }  
    let inputElement = document.getElementById('inputWindow');
@@ -27,7 +24,6 @@ document.getElementById('btn_del').addEventListener('click', function () {
     if (inputWindow.value.slice(-2,-1) == '.') {
         inputWindow.value = inputWindow.value.slice(0,-2);
     } 
-    
     else {
         inputWindow.value = inputWindow.value.slice(0,-1);
     }        
@@ -117,35 +113,38 @@ document.getElementById('btn_div').addEventListener('click', function () {
     inputWindow.value = '';
 })
 
-/* функции для операторов */
+/* функции для расчета при клике на "=" */
 document.getElementById('btn_calc').addEventListener('click', function () {
     if (operation === 'sum') {
         const result = lastOperand + parseFloat(inputWindow.value);
         operation = null;
         lastOperand = 0;
-        inputWindow.value = result.toFixed(0);
-        console.log(typeof(inputWindow.value));
+        inputWindow.value = result.toFixed(10);
     } 
 
     if (operation === 'def') {
         const result = lastOperand - parseFloat(inputWindow.value);
         operation = null;
         lastOperand = 0;
-        inputWindow.value = result.toFixed(0);
+        inputWindow.value = result.toFixed(10);
     }
     
     if (operation === 'mlt') {
         const result = lastOperand * parseFloat(inputWindow.value);
         operation = null;
         lastOperand = 0;
-        inputWindow.value = result.toFixed(0);
+        inputWindow.value = result.toFixed(10);
     }
      
     if (operation === 'div') {
         const result = lastOperand / parseFloat(inputWindow.value);
         operation = null;
         lastOperand = 0;
-        inputWindow.value = result.toFixed(0);
+        inputWindow.value = result.toFixed(10);
     }
 
+    /* убираем лишние нули после точки */
+    if (inputWindow.value.substr(inputWindow.value.length - 11) === '.0000000000') {
+        inputWindow.value = inputWindow.value.substring(0, inputWindow.value.length - 11);
+   } 
 })
