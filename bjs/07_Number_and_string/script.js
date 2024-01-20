@@ -1,6 +1,4 @@
-// 2 бага: 
-// 1 - надо убрать ввод текста с клавиатуры (а запятую переделать в точку)
-// 2 - при делении получаются лишние остатки после запятой
+// убрать округление до целого
 
 let lastOperand = 0;
 let operation = null;
@@ -8,6 +6,17 @@ let operation = null;
 const inputWindow = document.getElementById('inputWindow');
 //console.log(typeof(inputWindow.value));
 
+
+/* запрещаем вводить в поле что-либо, кроме цифр */
+function filterField(e) { 
+    // e.target.value = e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, '');
+     e.target.value = e.target.value.replace(/[A-Za-zА-Яа-яЁё^\s()-+]/, '');
+   }  
+   let inputElement = document.getElementById('inputWindow');
+   inputElement.addEventListener('input', filterField);
+
+
+/* верхние голубые кнопки */
 document.getElementById('btn_clr').addEventListener('click', function () {
     lastOperand = 0;
     operation = null;
@@ -82,7 +91,7 @@ document.getElementById('btn_9').addEventListener('click', function () {
     inputWindow.value += '9';        
 })
 
-/* операторы */
+/* зеленые операторы */
 document.getElementById('btn_sum').addEventListener('click', function () {
     lastOperand = parseFloat(inputWindow.value);
     operation = 'sum';
@@ -114,28 +123,29 @@ document.getElementById('btn_calc').addEventListener('click', function () {
         const result = lastOperand + parseFloat(inputWindow.value);
         operation = null;
         lastOperand = 0;
-        inputWindow.value = result;
+        inputWindow.value = result.toFixed(0);
+        console.log(typeof(inputWindow.value));
     } 
 
     if (operation === 'def') {
         const result = lastOperand - parseFloat(inputWindow.value);
         operation = null;
         lastOperand = 0;
-        inputWindow.value = result;
+        inputWindow.value = result.toFixed(0);
     }
     
     if (operation === 'mlt') {
         const result = lastOperand * parseFloat(inputWindow.value);
         operation = null;
         lastOperand = 0;
-        inputWindow.value = result;
+        inputWindow.value = result.toFixed(0);
     }
      
     if (operation === 'div') {
         const result = lastOperand / parseFloat(inputWindow.value);
         operation = null;
         lastOperand = 0;
-        inputWindow.value = result;
+        inputWindow.value = result.toFixed(0);
     }
 
 })
