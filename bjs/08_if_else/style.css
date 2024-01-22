@@ -2,3 +2,195 @@
     height: 100vh;
     font-family: 'Open Sans', monospace;
 }
+
+
+
+
+
+
+
+
+
+.calc-row {
+    height: 100vh;
+}
+
+.input-window {
+    text-align: end;
+    font-size: x-large;
+}
+
+input {
+  caret-color: #71c4d1;
+}
+
+body {  
+  background: #ecf0f3;  
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.card-body{
+  border-radius: 20px;
+  padding: 30px;
+  background: #ecf0f3;
+  box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+}
+
+.card {
+  background: #ecf0f3;
+  border: 0;
+}
+
+#inputWindow {
+  background: #f6f9fb;
+  padding: 10px;
+  height: 50px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 0;
+  margin-right: 10px; 
+  margin-left: 10px;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+button {
+  color: white;
+  margin-top: 20px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 900;
+  box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+  transition: 0.5s;
+}
+
+button:hover {
+  box-shadow: none;
+}
+
+.btn {   
+     border-radius: 10px; 
+     padding: 0.3rem 0.5rem;   
+     background: #f6f9fb;
+}
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+
+/* хочу отличные от bootstrap цвета для кнопок*/
+
+.btn-outline-danger {
+    color: #8b8f94;
+    border-color: #dedfe2;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #8b8f94;
+    border-color: #dedfe2;
+  }
+  
+  .btn-outline-danger:focus, .btn-outline-danger.focus {
+    box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
+  }
+  
+  .btn-outline-danger.disabled, .btn-outline-danger:disabled {
+    color: #8b8f94;
+  }
+  
+  .btn-outline-danger:not(:disabled):not(.disabled):active, .btn-outline-danger:not(:disabled):not(.disabled).active,
+  .show > .btn-outline-danger.dropdown-toggle {
+    background-color: #212529;
+    border-color: #dedfe2;
+  }
+  
+  .btn-outline-danger:not(:disabled):not(.disabled):active:focus, .btn-outline-danger:not(:disabled):not(.disabled).active:focus,
+  .show > .btn-outline-danger.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
+  }  
+
+  .btn-outline-primary {
+    background-color: #71c4d1;
+    color: white;
+    border-color: #71c4d1;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: white;
+    color: #71c4d1;
+    border-color: #71c4d1;
+  }
+  
+  .btn-outline-primary:focus, .btn-outline-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
+  }
+  
+  .btn-outline-primary.disabled, .btn-outline-primary:disabled {
+    color: #71c4d1;
+  }
+  
+  .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,
+  .show > .btn-outline-primary.dropdown-toggle {
+    background-color: #127f91;
+    border-color: #71c4d1;
+  }
+  
+  .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+  .show > .btn-outline-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
+  } 
+
+#btn_calc {   
+    background-color: #e07a84;
+    color: white;
+    border-color: #e07a84;
+}
+
+#btn_calc:hover {   
+    background-color: white;
+    color: #e07a84;
+    border-color: #e07a84;
+}
+
+#btn_calc:focus, #btn_calc.focus {
+    box-shadow: 0 0 0 0.2rem rgba(230, 156, 163, 1);
+  }
+  
+  #btn_calc.disabled, #btn_calc:disabled {
+    color: #e07a84;
+  }
+  
+  #btn_calc:not(:disabled):not(.disabled):active, #btn_calc:not(:disabled):not(.disabled).active,
+  .show > .btn-outline-primary.dropdown-toggle {
+    background-color: #88101c;
+    border-color: #e07a84;
+    color:#fff;
+  }
+  
+  #btn_calc:not(:disabled):not(.disabled):active:focus, #btn_calc:not(:disabled):not(.disabled).active:focus,
+  .show > #btn_calc.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(230, 156, 163, 1);
+  }
+
+.btn-success {
+    color: #fff;
+    background-color: #7abd89;
+    border-color: #7abd89;
+  }
+
+.btn-success:hover {
+    color: #7abd89;
+    background-color: #fff;
+    border-color: #7abd89;
+  }
+  
+  .btn-success:focus, .btn-success.focus {
+    color: #7abd89;
+    background-color: #fff;
+    border-color: #7abd89;
+    box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);
+  }
+  
+/* /хочу отличные от bootstrap цвета для кнопок*/
