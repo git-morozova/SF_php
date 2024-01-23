@@ -19,91 +19,62 @@ orderNumberField.innerText = orderNumber;
 
 
 
-// ФУНКЦИЯ ДЛЯ ТЕКСТОВОЙ ЗАПИСИ ЧИСЛА
+/* ФУНКЦИЯ ДЛЯ ТЕКСТОВОЙ ЗАПИСИ ЧИСЛА */
 
-// задаем переменные для текста - сотен, десятков, единиц
-let thirdText;
-let secondText;
-let firstText;
-
-// функция
 let numToText = function (answerNumber) {
 
-  //обнуляем предыдущие текстовые значения
-  thirdText = '';
-  secondText = '';
-  firstText = '';
+  // задаем переменные для текста - сотен, десятков, единиц и заодно обнуляем их
+  let thirdText = '';
+  let secondText = '';
+  let firstText = '';
 
-  // от 1 до 19
-  if (1 <= answerNumber && answerNumber <= 19) {  
-  switch (answerNumber) {
-      case 1:      answerText = `один`;      break;
-      case 2:      answerText = `два`;      break;
-      case 3:      answerText = `три`;      break;
-      case 4:      answerText = `четыре`;      break;
-      case 5:      answerText = `пять`;      break;
-      case 6:      answerText = `шесть`;      break;
-      case 7:      answerText = `семь`;      break;
-      case 8:      answerText = `восемь`;      break;
-      case 9:      answerText = `девять`;      break;
-      case 10:      answerText = `десять`;      break;
-      case 11:      answerText = `одиннадцать`;      break;
-      case 12:      answerText = `двенадцать`;      break;
-      case 13:      answerText = `тринадцать`;      break;
-      case 14:      answerText = `четырнадцать`;      break;
-      case 15:      answerText = `пятнадцать`;      break;
-      case 16:      answerText = `шестнадцать`;      break;
-      case 17:      answerText = `семнадцать`;      break;
-      case 18:      answerText = `восемнадцать`;      break;
-      case 19:      answerText = `девятнадцать`;      break;
+
+// подфункция переписывает числа 1-19 в текст
+  let firstNumToText = function (firstNum) {
+  switch (firstNum) {
+      case 1:      firstText = `один`;      break;
+      case 2:      firstText = `два`;      break;
+      case 3:      firstText = `три`;      break;
+      case 4:      firstText = `четыре`;      break;
+      case 5:      firstText = `пять`;      break;
+      case 6:      firstText = `шесть`;      break;
+      case 7:      firstText = `семь`;      break;
+      case 8:      firstText = `восемь`;      break;
+      case 9:      firstText = `девять`;      break;
+      case 10:      firstText = `десять`;      break;
+      case 11:      firstText = `одиннадцать`;      break;
+      case 12:      firstText = `двенадцать`;      break;
+      case 13:      firstText = `тринадцать`;      break;
+      case 14:      firstText = `четырнадцать`;      break;
+      case 15:      firstText = `пятнадцать`;      break;
+      case 16:      firstText = `шестнадцать`;      break;
+      case 17:      firstText = `семнадцать`;      break;
+      case 18:      firstText = `восемнадцать`;      break;
+      case 19:      firstText = `девятнадцать`;      break;
   }
+ }
+
+
+
+// подфункция переписывает числа 20, 30, 40 ... 90 в текст
+  let secondNumToText = function (secondNum) {
+  switch (secondNum) {      
+    case '2':      secondText = `двадцать`;      break;
+    case '3':      secondText = `тридцать`;      break;
+    case '4':      secondText = `сорок`;      break;
+    case '5':      secondText = `пятьдесят`;      break;
+    case '6':      secondText = `шестьдесят`;      break;
+    case '7':      secondText = `семьдесят`;      break;
+    case '8':      secondText = `восемьдесят`;      break;
+    case '9':      secondText = `девяносто`;      break;   
 }
 
-// от 20 до 99
-else if (answerNumber >= 20 && answerNumber <= 99) { 
+ }
 
-// задаем переменные для цифровых значений - десятков, единиц
-let secondNum = answerNumber.toString().substring(0,1); //десятки
-let firstNum = answerNumber.toString().substring(1,2); //единицы 
-  
-  //переводим десятки в текст - Название разряда десятка
-    switch (secondNum) {      
-      case '2':      secondText = `двадцать`;      break;
-      case '3':      secondText = `тридцать`;      break;
-      case '4':      secondText = `сорок`;      break;
-      case '5':      secondText = `пятьдесят`;      break;
-      case '6':      secondText = `шестьдесят`;      break;
-      case '7':      secondText = `семьдесят`;      break;
-      case '8':      secondText = `восемьдесят`;      break;
-      case '9':      secondText = `девяносто`;      break;   
-  }
 
-//переводим единицы в текст - название двузначного остатка от деления на 10
-    switch (firstNum) {
-      case '1':      firstText = `один`;      break;
-      case '2':      firstText = `два`;      break;
-      case '3':      firstText = `три`;      break;
-      case '4':      firstText = `четыре`;      break;
-      case '5':      firstText = `пять`;      break;
-      case '6':      firstText = `шесть`;      break;
-      case '7':      firstText = `семь`;      break;
-      case '8':      firstText = `восемь`;      break;
-      case '9':      firstText = `девять`;      break;  
-      case '0':      firstText = ``;      break;    
-    }
-    answerText = secondText + ' ' + firstText;
-}
-
-// от 100 до 999
-else if (answerNumber >= 100 && answerNumber <= 999) { 
-
-  // задаем переменные для цифровых значений - сотен, десятков, единиц
-  let thirdNum = answerNumber.toString().substring(0,1); //десятки
-  let secondNum = answerNumber.toString().substring(1,2); //десятки
-  let firstNum = answerNumber.toString().substring(2,3); //единицы 
-
-    //переводим сотни в текст
-      switch (thirdNum) {      
+// подфункция переписывает числа 100, 200, 300 ... 900 в текст
+  let thirdNumToText = function (thirdNum) {
+  switch (thirdNum) {      
         case '1':      thirdText = `сто`;      break;
         case '2':      thirdText = `двести`;      break;
         case '3':      thirdText = `триста`;      break;
@@ -112,45 +83,69 @@ else if (answerNumber >= 100 && answerNumber <= 999) {
         case '6':      thirdText = `шестьсот`;      break;
         case '7':      thirdText = `семьсот`;      break;
         case '8':      thirdText = `восемьсот`;      break;
-        case '9':      thirdText = `девятьсот`;      break;   
-    }
-  
-  //переводим десятки в текст
-      switch (secondNum) {      
-        case '1':      secondText = `ОЙ`;      break; // АХТУНГ
-        case '2':      secondText = `двадцать`;      break;
-        case '3':      secondText = `тридцать`;      break;
-        case '4':      secondText = `сорок`;      break;
-        case '5':      secondText = `пятьдесят`;      break;
-        case '6':      secondText = `шестьдесят`;      break;
-        case '7':      secondText = `семьдесят`;      break;
-        case '8':      secondText = `восемьдесят`;      break;
-        case '9':      secondText = `девяносто`;      break; 
-        case '0':      firstText = ``;      break;   
-    }
-  
-  //переводим единицы в текст
-      switch (firstNum) {
-        case '1':      firstText = `один`;      break;
-        case '2':      firstText = `два`;      break;
-        case '3':      firstText = `три`;      break;
-        case '4':      firstText = `четыре`;      break;
-        case '5':      firstText = `пять`;      break;
-        case '6':      firstText = `шесть`;      break;
-        case '7':      firstText = `семь`;      break;
-        case '8':      firstText = `восемь`;      break;
-        case '9':      firstText = `девять`;      break;  
-        case '0':      firstText = ``;      break;    
-      }
-      answerText = thirdText + ' ' + secondText + ' ' + firstText;
+        case '9':      thirdText = `девятьсот`;      break;  
+}
+ }
+
+
+  // если пробное число - от 1 до 19
+  if (1 <= answerNumber && answerNumber <= 19) {  
+firstNumToText(firstNum); // просто вызываем подфункцию, которая переписывает числа 1-19 в текст
+}
+
+
+// если пробное число - от 20 до 99
+else if (answerNumber >= 20 && answerNumber <= 99) { 
+
+let firstNum = answerNumber% 10; // остаток от деления на 10 - наши единицы
+firstNumToText(firstNum); // для единиц вызываем подфункцию, которая переписывает в том числе числа 1-9 в текст
+
+let secondNum = answerNumber.toString().slice(0,-1); // Название разряда десятка - наши десятки
+secondNumToText(secondNum); // для десятков - своя подфункция   
+}
+
+
+// если пробное число - от 100 до 999
+else if (answerNumber >= 100 && answerNumber <= 999) { 
+  let firstNum = answerNumber.toString().slice(-2);  
+        // если десятки и единицы входят в 1-19, выполняем это
+        if (firstNum >= 1 && firstNum <= 19) {
+          firstNum = answerNumber% 100; // остаток от деления на 100 - наши 1-19
+          firstNumToText(firstNum); // для единиц вызываем подфункцию, которая переписывает числа 1-19 в текст
+
+          // это чтобы убрать баг с пробелами (например, число 312 - пробел между 300 и 12 теряется при сборке текста (secondText && thirdText));
+          secondText = firstText;          
+          firstText = null;
+        }
+      
+        // если десятки и единицы входят в 20+, выполняем это
+        else {
+          firstNum = answerNumber% 10; // остаток от деления на 10 - наши единицы
+          firstNumToText(firstNum); // снова берем подфункцию для единиц, но она для 1-9 на этот раз
+
+          let secondNum = answerNumber.toString().slice(-2,-1); // Название разряда десятка - наши десятки
+          secondNumToText(secondNum); // для десятков - своя подфункция 
+        }
+      
+    // сотни переводим в текст одинаково
+    let thirdNum = answerNumber.toString().substring(0,1); // Название разряда сотен - наши сотни
+    thirdNumToText(thirdNum); // для сотен - своя подфункция
   }
+ 
 
 else {
   alert(`Ошибка`);
   window.location.reload();  
 }
 
-//console.log(answerText);
+// собираем текст: сотни + десятки + единицы. Не забываем про пробелы
+answerText = (thirdText ? thirdText : '') + ((secondText && thirdText) ? (' ') : ('')) + (secondText ? secondText : '') + ((secondText && firstText) ? (' ') : ('')) + (firstText ? firstText : ''); 
+
+// проверка на кол-во знаков в получившемся тексте
+if (answerText.length >= 20) {
+  answerText = null;
+}
+
 }
 
 
