@@ -25,9 +25,21 @@
                 </div>
                 <div class="card">
                     <div class="btn-group">
-                        <button class="btn btn-info" id="btnLess">&#129047;<br>меньше</button>
-                        <button class="btn btn-success btn-lg" id="btnEqual">Верно!</button>
-                        <button class="btn btn-info" id="btnOver">больше<br>&#129045;</button>
+                      <div class="toggle">
+                        <input type="checkbox" id="btnLess">
+                        <span class="button"></span>
+                        <span class="label">–</span>
+                      </div>
+                      <div class="toggle">
+                        <input type="checkbox"  class="btn-success" id="btnEqual">
+                        <span class="button"></span>
+                        <span class="label">&#10003;</span>
+                      </div>
+                        <div class="toggle">
+                          <input type="checkbox" id="btnOver">
+                          <span class="button"></span>
+                          <span class="label">+</span>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -37,6 +49,9 @@
         </div>
     </div>
 </div>
+
+
 <script src="script.js"></script>
+
 </body>
 </html>

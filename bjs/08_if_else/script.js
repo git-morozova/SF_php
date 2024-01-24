@@ -1,33 +1,64 @@
-let minValue = parseInt(prompt('Минимальное значение числа для игры','0'));
-let maxValue = parseInt(prompt('Максимальное значение числа для игры','100'));
+let minValue = prompt('Минимальное значение числа для игры','0');
+let maxValue = prompt('Максимальное значение числа для игры','100');
 
-let answerNumber  = Math.floor((minValue + maxValue) / 2);
 let answerText = null;
 let orderNumber = 1; //порядковый номер вопроса
 let gameRun = true;
 
-// проверяем, что пользователь не дурак и максимальное число больше минимального
-if (minValue > maxValue) {
-  alert(`Ошибка`);
-  window.location.reload();  
-}
-
 const orderNumberField = document.getElementById('orderNumberField');
 const answerField = document.getElementById('answerField');
-
 orderNumberField.innerText = orderNumber;
 
 
 
-/* ФУНКЦИЯ ДЛЯ ТЕКСТОВОЙ ЗАПИСИ ЧИСЛА */
+/* ФУНКЦИЯ ДЛЯ ПРОВЕРКИ ВВЕДЕННЫХ ЗНАЧЕНИЙ */
+let checkValues = function () {   
 
-let numToText = function (answerNumber) {
+/* При вводе текста, который не может быть интерпретирован как число (NaN), присваивать значения по умолчанию, 
+используя короткий цикл операций дизъюнкции */
+minValue = parseInt(minValue) || 0; // это сработает, т.к. 0 (равный false) - и так значение по умолчанию
+maxValue === '0' ? maxValue = 0 : maxValue = (parseInt(maxValue) || 100);  // а вот тут надо сделать доп. проверку на строковое значение "0", иначе 0 будет заменяться на 100
+
+/* При вводе максимума или минимума больше 999 или меньше -999 изменять число на ближайшую границу 
+(например, 1000 на 999, а -10000 на -999), используя тернарный оператор */
+minValue < -999 ? minValue = -999 : minValue;
+minValue > 999 ? minValue = 999 : minValue;
+maxValue < -999 ? maxValue = -999 : maxValue;
+maxValue > 999 ? maxValue = 999 : maxValue;
+
+// проверяем, что максимальное число больше минимального
+if (minValue >= maxValue) {
+  alert(`Ошибка: минимальное число больше или равно максимальному`);
+  window.location.reload();  
+}
+}
+
+
+
+//вызываем ее
+checkValues();
+
+// считаем среднюю только после проверки введенных чисел
+let answerNumber  = Math.floor((minValue + maxValue) / 2);
+
+
+
+/* ФУНКЦИЯ ДЛЯ ТЕКСТОВОЙ ЗАПИСИ ЧИСЛА */
+let numToText = function (answerNumber) {  
+
+// определяем отрицательный answerNumber
+let minus = false;
+if (answerNumber.toString().substring(0,1) == '-') {
+  minus = true; 
+}
+
+// берем модуль answerNumber, чтобы минус не мешался
+answerNumber = Math.abs(answerNumber);
 
   // задаем переменные для текста - сотен, десятков, единиц и заодно обнуляем их
   let thirdText = '';
   let secondText = '';
   let firstText = '';
-
 
 // подфункция переписывает числа 1-19 в текст
   let firstNumToText = function (firstNum) {
@@ -51,10 +82,7 @@ let numToText = function (answerNumber) {
       case 17:      firstText = `семнадцать`;      break;
       case 18:      firstText = `восемнадцать`;      break;
       case 19:      firstText = `девятнадцать`;      break;
-  }
- }
-
-
+  }}
 
 // подфункция переписывает числа 20, 30, 40 ... 90 в текст
   let secondNumToText = function (secondNum) {
@@ -67,10 +95,7 @@ let numToText = function (answerNumber) {
     case '7':      secondText = `семьдесят`;      break;
     case '8':      secondText = `восемьдесят`;      break;
     case '9':      secondText = `девяносто`;      break;   
-}
-
- }
-
+}}
 
 // подфункция переписывает числа 100, 200, 300 ... 900 в текст
   let thirdNumToText = function (thirdNum) {
@@ -84,68 +109,67 @@ let numToText = function (answerNumber) {
         case '7':      thirdText = `семьсот`;      break;
         case '8':      thirdText = `восемьсот`;      break;
         case '9':      thirdText = `девятьсот`;      break;  
-}
- }
+}}
 
+    // если пробное число - от 1 до 19
+    if (1 <= answerNumber && answerNumber <= 19) {  
+    let firstNum = answerNumber;
+    firstNumToText(firstNum); // просто вызываем подфункцию, которая переписывает числа 1-19 в текст
+    }
 
-  // если пробное число - от 1 до 19
-  if (1 <= answerNumber && answerNumber <= 19) {  
-firstNumToText(firstNum); // просто вызываем подфункцию, которая переписывает числа 1-19 в текст
-}
+    // если пробное число - от 20 до 99
+    else if (answerNumber >= 20 && answerNumber <= 99) { 
 
+    let firstNum = answerNumber% 10; // остаток от деления на 10 - наши единицы
+    firstNumToText(firstNum); // для единиц вызываем подфункцию, которая переписывает в том числе числа 1-9 в текст
 
-// если пробное число - от 20 до 99
-else if (answerNumber >= 20 && answerNumber <= 99) { 
+    let secondNum = answerNumber.toString().slice(0,-1); // Название разряда десятка - наши десятки
+    secondNumToText(secondNum); // для десятков - своя подфункция   
+    }
 
-let firstNum = answerNumber% 10; // остаток от деления на 10 - наши единицы
-firstNumToText(firstNum); // для единиц вызываем подфункцию, которая переписывает в том числе числа 1-9 в текст
+    // если пробное число - от 100 до 999
+    else if (answerNumber >= 100 && answerNumber <= 999) { 
+      let firstNum = answerNumber.toString().slice(-2);  
+            // если десятки и единицы входят в 1-19, выполняем это
+            if (firstNum >= 1 && firstNum <= 19) {
+              firstNum = answerNumber% 100; // остаток от деления на 100 - наши 1-19
+              firstNumToText(firstNum); // для единиц вызываем подфункцию, которая переписывает числа 1-19 в текст
 
-let secondNum = answerNumber.toString().slice(0,-1); // Название разряда десятка - наши десятки
-secondNumToText(secondNum); // для десятков - своя подфункция   
-}
+              // это чтобы убрать баг с пробелами (например, число 312 - пробел между 300 и 12 теряется при сборке текста (secondText && thirdText));
+              secondText = firstText;          
+              firstText = null;
+            }
+          
+            // если десятки и единицы входят в 20-99, выполняем это
+            else {
+              firstNum = answerNumber% 10; // остаток от деления на 10 - наши единицы
+              firstNumToText(firstNum); // снова берем подфункцию для единиц, но она для 1-9 на этот раз
 
+              let secondNum = answerNumber.toString().slice(-2,-1); // Название разряда десятка - наши десятки
+              secondNumToText(secondNum); // для десятков - своя подфункция 
+            }
+          
+        // сотни переводим в текст одинаково
+        let thirdNum = answerNumber.toString().substring(0,1); // Название разряда сотен - наши сотни
+        thirdNumToText(thirdNum); // для сотен - своя подфункция
+      }    
 
-// если пробное число - от 100 до 999
-else if (answerNumber >= 100 && answerNumber <= 999) { 
-  let firstNum = answerNumber.toString().slice(-2);  
-        // если десятки и единицы входят в 1-19, выполняем это
-        if (firstNum >= 1 && firstNum <= 19) {
-          firstNum = answerNumber% 100; // остаток от деления на 100 - наши 1-19
-          firstNumToText(firstNum); // для единиц вызываем подфункцию, которая переписывает числа 1-19 в текст
+    else {
+      // остался ноль. выводим как 0
+      answerText = null;  
+    }
 
-          // это чтобы убрать баг с пробелами (например, число 312 - пробел между 300 и 12 теряется при сборке текста (secondText && thirdText));
-          secondText = firstText;          
-          firstText = null;
-        }
-      
-        // если десятки и единицы входят в 20+, выполняем это
-        else {
-          firstNum = answerNumber% 10; // остаток от деления на 10 - наши единицы
-          firstNumToText(firstNum); // снова берем подфункцию для единиц, но она для 1-9 на этот раз
-
-          let secondNum = answerNumber.toString().slice(-2,-1); // Название разряда десятка - наши десятки
-          secondNumToText(secondNum); // для десятков - своя подфункция 
-        }
-      
-    // сотни переводим в текст одинаково
-    let thirdNum = answerNumber.toString().substring(0,1); // Название разряда сотен - наши сотни
-    thirdNumToText(thirdNum); // для сотен - своя подфункция
-  }
- 
-
-else {
-  alert(`Ошибка`);
-  window.location.reload();  
-}
-
-// собираем текст: сотни + десятки + единицы. Не забываем про пробелы
+// собираем текст: сотни + десятки + единицы. Не забываем про пробелы...
 answerText = (thirdText ? thirdText : '') + ((secondText && thirdText) ? (' ') : ('')) + (secondText ? secondText : '') + ((secondText && firstText) ? (' ') : ('')) + (firstText ? firstText : ''); 
+// ...и минус
+if (minus) {
+  answerText = 'минус ' + answerText;
+}
 
 // проверка на кол-во знаков в получившемся тексте
 if (answerText.length >= 20) {
   answerText = null;
 }
-
 }
 
 
@@ -277,8 +301,9 @@ document.getElementById('btnEqual').addEventListener('click', function () {
 
 /* КНОПКА ЗАНОВО */
 document.getElementById('btnRetry').addEventListener('click', function () {
-  minValue = parseInt(prompt('Новое минимальное значение числа','0'));
-  maxValue = parseInt(prompt('Новое максимальное значение числа','100'));
+  minValue = prompt('Новое минимальное значение числа','0');
+  maxValue = prompt('Новое максимальное значение числа','100');
+  checkValues(); // вызов функции проверки введенных значений
   answerNumber  = Math.floor((minValue + maxValue) / 2);  
   orderNumber = 1;
   orderNumberField.innerText = orderNumber;
