@@ -11,45 +11,117 @@
 <body>
 <div class="card">
     <div class="row game-card align-items-center">
-        <div class="col col-md-4 offset-md-4">
+        <div class="col col-md-6 offset-md-3">
             <div class="card-body text-center">
-                <div class="card-header">
-                    <p class="m-0">Вопрос №<span id="orderNumberField">5</span></p>
+
+                <div id="alert">
+                    <div class="card-header">
+                        <p class="m-0"><b>Ошибка:</b> минимальное число меньше или равно максимальному!</p>
+                    </div> 
                 </div>
-                <div class="card">
-                    <div class="row no-gutters">
-                        <div class="col">
-                            <h3 class="card-title m-0"><span id="answerField">Вы загадали число 5?</span></h3>
+                
+                <div id="hideMin">
+                    <div class="card-header">
+                        <p class="m-0">Загадайте любое целое число от -999 до 999, а я его угадаю. Введите нижнюю границу диапазона (по умолчанию - 0):</p>
+                    </div>  
+                    <div class="">
+                        <div class="row no-gutters">
+                            <div class="col">
+                                <h3 class="card-title m-0">
+                                <input class="textField" id="answerMin" value="0">
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="btn-group row">                      
+                        <div class="toggle success">                        
+                            <input type="checkbox"  class="btn-success" id="btnMin">
+                            <span class="button"></span>
+                            <span class="label">&#10003;</span>                        
+                        </div>                       
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="btn-group">
-                      <div class="toggle">
-                        <input type="checkbox" id="btnLess">
-                        <span class="button"></span>
-                        <span class="label">–</span>
-                      </div>
-                      <div class="toggle">
-                        <input type="checkbox"  class="btn-success" id="btnEqual">
-                        <span class="button"></span>
-                        <span class="label">&#10003;</span>
-                      </div>
-                        <div class="toggle">
-                          <input type="checkbox" id="btnOver">
-                          <span class="button"></span>
-                          <span class="label">+</span>
+
+                <div id="hideMax">                    
+                    <div class="card-header">
+                        <p class="m-0">А теперь - верхнюю границу диапазона (по умолчанию - 100):</p>
+                    </div>  
+                    <div class="">
+                        <div class="row no-gutters">
+                            <div class="col">
+                                <h3 class="card-title m-0">
+                                <input class="textField" id="answerMax" value="100">
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="btn-group row">                      
+                        <div class="toggle success">                        
+                            <input type="checkbox"  class="btn-success" id="btnMax">
+                            <span class="button"></span>
+                            <span class="label">&#10003;</span>                        
+                        </div>                       
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-link" id="btnRetry">Заново</button>
+
+                <div id="hideMain">           
+                    <div class="card-header">
+                        <p class="m-0">Вопрос №<span id="orderNumberField">5</span></p>
+                    </div>
+                    <div class="">
+                        <div class="row no-gutters">
+                            <div class="col">
+                                <h3 class="card-title m-0">
+                                <span class="textField" id="answerField">Вы загадали число 5?</span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="btn-group row">
+                        <div class="toggle col-3">
+                            <input type="checkbox" id="btnLess">
+                            <span class="tooltip-text">Нет, меньше</span>
+                            <span class="button"></span>
+                            <span class="label">–</span>
+                        </div>
+                        <div class="toggle col-6 success">                        
+                            <input type="checkbox"  class="btn-success" id="btnEqual">
+                            <span class="tooltip-text">Верно!</span>
+                            <span class="button"></span>
+                            <span class="label">&#10003;</span>                        
+                        </div>
+                            <div class="toggle col-3">
+                            <input type="checkbox" id="btnOver">
+                            <span class="tooltip-text">Нет, больше</span>
+                            <span class="button"></span>
+                            <span class="label">+</span>
+                            </div>
+                        </div>
+                    </div>                   
                 </div>
+
+                <div id="hideRetry">  
+                    <div class="card-footer">
+                        <a class="btn-slide" href="#" id="btnRetry">
+                            <span class="circle">
+                            <i class="fa fa-save"></i>
+                            </span>
+                        
+                            <span class="title" >Начать заново</span>
+                            <span class="title title-hover">Поехали!</span>
+                            </a>                       
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
-
 
 <script src="script.js"></script>
 

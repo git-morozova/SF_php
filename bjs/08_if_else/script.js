@@ -1,5 +1,6 @@
-let minValue = prompt('Минимальное значение числа для игры','0');
-let maxValue = prompt('Максимальное значение числа для игры','100');
+let minValue = '0';
+let maxValue = '100';
+let answerNumber  = Math.floor((minValue + maxValue) / 2);
 
 let answerText = null;
 let orderNumber = 1; //порядковый номер вопроса
@@ -9,37 +10,79 @@ const orderNumberField = document.getElementById('orderNumberField');
 const answerField = document.getElementById('answerField');
 orderNumberField.innerText = orderNumber;
 
+/* для наглядности показываем, какие блоки скрыты в начале игры */
+document.getElementById("alert").style.display = 'none';
+document.getElementById("hideMin").style.display = 'block';
+document.getElementById("hideMax").style.display = 'none';
+document.getElementById("hideMain").style.display = 'none';
+document.getElementById("hideRetry").style.display = 'none';
+
+
+
+/* КНОПКИ ДЛЯ ВВОДА ДАННЫХ */
+document.getElementById('btnMin').addEventListener('click', (e) => {
+  const answerMin = document.getElementById('answerMin');
+  minValue = answerMin.value;
+  document.getElementById("hideMin").style.display = 'none';
+  document.getElementById("hideMax").style.display = 'block';
+})
+
+document.getElementById('btnMax').addEventListener('click', (e) => {  
+  document.getElementById("hideMin").style.display = 'none'; // по умолчанию - так
+  document.getElementById("hideMax").style.display = 'none';
+  document.getElementById("hideMain").style.display = 'block';
+  document.getElementById("hideRetry").style.display = 'block';
+
+  const answerMax = document.getElementById('answerMax');
+  maxValue = answerMax.value;
+  checkValues(); //проверяем введенные значения. Если минимум больше максимума, то скрываются все блоки и выводится блок алерт
+  answerNumber  = Math.floor((minValue + maxValue) / 2); // считаем среднюю только после проверки введенных чисел
+  numToText(answerNumber); // сначала вызов функции текстового представления
+  switchPhrase['question'](); // только потом вызываем функцию вопроса, верное ли число
+})
+
+
+
+/* КНОПКА ЗАНОВО */
+document.getElementById('btnRetry').addEventListener('click', function () {
+  document.getElementById("alert").style.display = 'none';
+  document.getElementById("hideMin").style.display = 'block';
+  document.getElementById("hideMax").style.display = 'none';
+  document.getElementById("hideMain").style.display = 'none';
+  document.getElementById("hideRetry").style.display = 'none';
+
+  orderNumber = 1;
+  orderNumberField.innerText = orderNumber;
+  gameRun = true;
+})
+
 
 
 /* ФУНКЦИЯ ДЛЯ ПРОВЕРКИ ВВЕДЕННЫХ ЗНАЧЕНИЙ */
 let checkValues = function () {   
 
-/* При вводе текста, который не может быть интерпретирован как число (NaN), присваивать значения по умолчанию, 
-используя короткий цикл операций дизъюнкции */
-minValue = parseInt(minValue) || 0; // это сработает, т.к. 0 (равный false) - и так значение по умолчанию
-maxValue === '0' ? maxValue = 0 : maxValue = (parseInt(maxValue) || 100);  // а вот тут надо сделать доп. проверку на строковое значение "0", иначе 0 будет заменяться на 100
-
-/* При вводе максимума или минимума больше 999 или меньше -999 изменять число на ближайшую границу 
-(например, 1000 на 999, а -10000 на -999), используя тернарный оператор */
-minValue < -999 ? minValue = -999 : minValue;
-minValue > 999 ? minValue = 999 : minValue;
-maxValue < -999 ? maxValue = -999 : maxValue;
-maxValue > 999 ? maxValue = 999 : maxValue;
-
-// проверяем, что максимальное число больше минимального
-if (minValue >= maxValue) {
-  alert(`Ошибка: минимальное число больше или равно максимальному`);
-  window.location.reload();  
+  /* При вводе текста, который не может быть интерпретирован как число (NaN), присваивать значения по умолчанию, 
+  используя короткий цикл операций дизъюнкции */
+  minValue = parseInt(minValue) || 0; // это сработает, т.к. 0 (равный false) - и так значение по умолчанию
+  maxValue === '0' ? maxValue = 0 : maxValue = (parseInt(maxValue) || 100);  // а вот тут надо сделать доп. проверку на строковое значение "0", иначе 0 будет заменяться на 100
+  
+  /* При вводе максимума или минимума больше 999 или меньше -999 изменять число на ближайшую границу 
+  (например, 1000 на 999, а -10000 на -999), используя тернарный оператор */
+  minValue < -999 ? minValue = -999 : minValue;
+  minValue > 999 ? minValue = 999 : minValue;
+  maxValue < -999 ? maxValue = -999 : maxValue;
+  maxValue > 999 ? maxValue = 999 : maxValue;
+  
+  // проверяем, что максимальное число больше минимального
+  if (minValue >= maxValue) {
+    document.getElementById("alert").style.display = 'block'; //вывод блока про ошибку, остальное скрываем
+    document.getElementById("hideMin").style.display = 'none';
+    document.getElementById("hideMax").style.display = 'none';
+    document.getElementById("hideMain").style.display = 'none';
+    document.getElementById("hideRetry").style.display = 'block';
+   // window.location.reload();  
+  }
 }
-}
-
-
-
-//вызываем ее
-checkValues();
-
-// считаем среднюю только после проверки введенных чисел
-let answerNumber  = Math.floor((minValue + maxValue) / 2);
 
 
 
@@ -188,7 +231,7 @@ let switchPhrase = {
                     answerField.innerText = `Хм... Возможно, это число ${answerText ? answerText : answerNumber}?`;
                     break;
                   case 2:
-                      answerField.innerText = `Да это легко! Вы загадали ${answerText ? answerText : answerNumber}?`;
+                      answerField.innerText = `Да это легко! Вы загадали число ${answerText ? answerText : answerNumber}?`;
                     break;
                   case 3:
                       answerField.innerText = `Дайте подумать... Может, ${answerText ? answerText : answerNumber}?`;
@@ -243,11 +286,6 @@ let switchPhrase = {
 
 
 
-numToText(answerNumber); // сначала вызов функции текстового представления
-switchPhrase['question'](); // только потом вызываем функцию вопроса, верное ли число
-// и в таком порядке работаем везде - сначала проверка, потом вывод текста/числа
-
-
 /* КНОПКА МЕНЬШЕ */
 document.getElementById('btnLess').addEventListener('click', function () {
   answerText = null; // обнуляем текстовое представление числа
@@ -295,19 +333,4 @@ document.getElementById('btnEqual').addEventListener('click', function () {
         gameRun = false;
         answerText = null;
     }
-})
-
-
-
-/* КНОПКА ЗАНОВО */
-document.getElementById('btnRetry').addEventListener('click', function () {
-  minValue = prompt('Новое минимальное значение числа','0');
-  maxValue = prompt('Новое максимальное значение числа','100');
-  checkValues(); // вызов функции проверки введенных значений
-  answerNumber  = Math.floor((minValue + maxValue) / 2);  
-  orderNumber = 1;
-  orderNumberField.innerText = orderNumber;
-  numToText(answerNumber); // вызов функции текстового представления
-  switchPhrase['question'](); // вызов функции для выбора фразы с вопросом
-  gameRun = true;
 })
