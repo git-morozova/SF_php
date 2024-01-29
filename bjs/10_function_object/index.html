@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Генератор случайных пользователей</title>
@@ -11,28 +11,78 @@
 <body>
 <div class="container">
     <div class="row game-card align-items-center">
-        <div class="col col-md-6 offset-md-3">
+        <div class="col col-md-8 offset-md-2">
             <div class="card text-center">
                 <div class="card-header">
-                    <p class="m-0">Окно результатов генерации</p>
+                    <span class="m-0">Генерация пользователя</span>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h3 class="card-title"><span id="surnameOutput">Генерация фамилии</span></h3>
-                            <h4>Имя: <span id="firstNameOutput">Иван</span></h4>
-                            <p>
-                                <span id="genderOutput">Генерация пола</span>
-                                <span>, </span>
-                                <span id="birthYearOutput">Генерация года рождения</span>
-                            </p>
+                            <img src="img/anonim.png" id="avatar">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-4">
+                            <p class="nobr">фамилия:</p>                            
+                        </div>
+                        <div class="col col-8">
+                            <p class="textField">&nbsp;<span id="surnameOutput"></span></p> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-4">                            
+                            <p class="nobr"> имя:</p>   
+                        </div>
+                        <div class="col col-8">
+                            <p class="textField">&nbsp;<span id="firstNameOutput"></span> </p> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-4">                            
+                            <p class="nobr"> отчество:</p> 
+                        </div>
+                        <div class="col col-8">
+                            <p class="textField">&nbsp;<span id="patronymicOutput"></span></p> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-4">                            
+                            <p class="nobr"> пол:</p> 
+                        </div>
+                        <div class="col col-8">
+                            <p class="textField">&nbsp;<span id="genderOutput"></span></p> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-4">                            
+                            <p class="nobr"> дата рожд.:</p> 
+                        </div>
+                        <div class="col col-8">
+                            <p class="textField">&nbsp;<span id="birthOutput"></span></p> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-4">                            
+                            <p class="nobr"> профессия:</p> 
+                        </div>
+                        <div class="col col-8">
+                            <p class="textField">&nbsp;<span id="professionOutput"></span></p> 
+                        </div>
+                    </div>                   
+                    <div class="row">
+                        <div class="col">
+                            <button id="refresh">Сгенерировать</button>  
+                        </div>
+                        <div class="col">
+                            <button id="clear">Очистить поля</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div>            
 <script src="personGenerator.js"></script>
 <script src="init.js"></script>
 </body>

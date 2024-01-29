@@ -1,0 +1,123 @@
+body {
+    background: url(img/back.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    font-size: 1.3rem; 
+    font-family: 'Share Tech Mono', monospace;
+  }
+    
+  .card-body{
+    border-radius: 20px;  
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.55);  
+    box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px rgba(255, 255, 255, 0.6), inset 0 3px 4px -1px rgba(255, 255, 255, 0.2), inset 0 0 5px 1px rgba(255, 255, 255, 0.8), inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .card-header{
+    color: #FFFFFF;
+    text-align: center;
+  }
+  
+  .card {
+    border-radius: 20px;
+    background: none;    
+  }
+
+  .game-card {
+    height: 100vh;   
+  }
+  
+  p {
+    padding: 2px 20px;
+    text-align: right;
+    font-size: 1.1rem;
+  }
+
+  .col-8 {
+    padding-right: 40px;
+  }
+
+  img {
+    width: 40%;
+    height: auto;
+    padding-bottom: 30px;
+  }
+
+  .nobr	{ 
+    white-space:nowrap; 
+  }
+
+  /* для поля с выводом текста */
+  .textField {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px 20px;
+    height: auto;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: inset 0px 6px 12px #cbced1, inset 0px -6px 6px white;
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-size: 1.4rem;
+  } 
+  
+
+/* кнопки */
+/*https://ru.stackoverflow.com/questions/1097059/Как-сделать-такой-эффект-свечения-у-кнопки*/
+
+button {
+  position: relative;
+  height: 60px;
+  width: 260px; 
+  margin-top: 30px; 
+  border: none;
+  outline: none;
+  color: white;
+  background: #333;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+button:before {
+  position: absolute;
+  content: '';
+  top: -2px;
+  left: -2px;
+  height: calc(100% + 4px);
+  width: calc(100% + 4px);
+  border-radius: 10px;
+  z-index: -1;
+  opacity: 0;
+  filter: blur(5px);
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  background-size: 400%;
+  transition: opacity .3s ease-in-out;
+  animation: animate 20s linear infinite;
+}
+
+button:hover:before {
+  opacity: 1;
+}
+
+button:hover:active {
+  background: none;
+  color: #333;
+}
+
+button:hover:active:before {
+  filter: blur(2px);
+}
+
+@keyframes animate {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
