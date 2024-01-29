@@ -16,17 +16,15 @@ window.onload = () => generateNewUser();
 // кнопка "Сгенерировать пользователя"
 document.getElementById('refresh').addEventListener('click', () => {
     generateNewUser();
-    console.log("Новый пользователь сгенерирован!");
 });
 
 // кнопка "Очистить поля"
 document.getElementById('clear').addEventListener('click', () => {
-    document.getElementById('surnameOutput').innerText = " ";
-    document.getElementById('firstNameOutput').innerText = " ";
-    document.getElementById('patronymicOutput').innerText = " ";
-    document.getElementById('genderOutput').innerText = " ";
-    document.getElementById('birthOutput').innerText = " ";
-    document.getElementById('professionOutput').innerText = " ";
+    document.getElementById('surnameOutput').innerText = "";
+    document.getElementById('firstNameOutput').innerText = "";
+    document.getElementById('patronymicOutput').innerText = "";
+    document.getElementById('genderOutput').innerText = "";
+    document.getElementById('birthOutput').innerText = "";
+    document.getElementById('professionOutput').innerText = "";
     document.getElementById('avatar').src = "img/anonim.png";
-    console.log("Все поля очищены");
 });
