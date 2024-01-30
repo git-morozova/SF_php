@@ -21,7 +21,7 @@ const personGenerator = {
         }
     }`,
     firstNameMaleJson: `{
-        "count": 10,
+        "count": 19,
         "list": {     
             "id_1": "Александр",
             "id_2": "Максим",
@@ -32,9 +32,18 @@ const personGenerator = {
             "id_7": "Михаил",
             "id_8": "Даниил",
             "id_9": "Егор",
-            "id_10": "Андрей"
+            "id_10": "Андрей",
+            "id_11": "Игорь",
+            "id_12": "Василий",
+            "id_13": "Борис",
+            "id_14": "Юрий",
+            "id_15": "Виктор",
+            "id_16": "Сергей",
+            "id_17": "Данила",            
+            "id_18": "Илья",            
+            "id_19": "Павел"   
         }
-    }`,
+    }`,     
     firstNameFemaleJson: `{
         "count": 10,
         "list": {     
@@ -49,24 +58,7 @@ const personGenerator = {
             "id_9": "Виктория",
             "id_10": "Надежда"
         }
-    }`,
-    // при добавлении новых отчеств - сделать проверку на корректность генерации нового женского отчества 
-    // (убрать в конце "ич", добавить "на")
-    patronymicJson: `{
-        "count": 10,
-        "list": {     
-            "id_1": "Александрович",
-            "id_2": "Максимович",
-            "id_3": "Иванович",
-            "id_4": "Артемович",
-            "id_5": "Дмитриевич",
-            "id_6": "Сергеевич",
-            "id_7": "Михайлович",
-            "id_8": "Даниилович",
-            "id_9": "Егорович",
-            "id_10": "Андреевич"
-        }
-    }`,   
+    }`,     
     monthOfBirthJson: `{
         "count": 12,
         "list": {     
@@ -161,16 +153,60 @@ const personGenerator = {
     },   
 
     // ОТЧЕСТВО
-    // Добавлена генерация закреплённого за полом отчества в отдельном объекте, полученном от кода JSON
-    //Не должно встречаться генерации мужского отчества в женской фамилии и имени
+    /* 
+    Добавлена генерация закреплённого за полом отчества в отдельном объекте, полученном от кода JSON
+    Не должно встречаться генерации мужского отчества в женской фамилии и имени
+    */
+/* 
+- Отчества должны генерироваться из существующего объекта с мужскими именами. 
+В данной задаче предоставленный объект заменяет получение данных с бэкенда. Учебная задача - обработать эти данные. 
+- При генерации отчеств из мужских имён можно заменять не имена целиком, а только окончания имён на соответствующие окончания отчеств. 
+Для этого требуется научиться работать с подстроками.
+- При решении подобных задача необходимо опираться на: 
+а) здравый смысл; 
+б) существующие практики/традиции/обычаи; 
+в) справочники/стандарты/законодательные акты. 
+*/
+
     randomPatronymic: function() {
-        let patronymic = this.randomValue(this.patronymicJson);
-        if (this.person.gender == this.GENDER_MALE) {
-            return patronymic; //м                        
-        } else {
-            return patronymic.substring(0, patronymic.length - 2) + "на"; //ж
-        }   
+        let patronymic = this.randomValue(this.firstNameMaleJson); 
+            // по умолчанию - берем отчество для гендера "муж.", проверка на гендер будет после выполнения функции (строка 276)   
+            if(["б","в","г","д","з","к","л","м","н","п","р","с","т","ф","х"].indexOf(patronymic.slice(-1)) > -1) {
+                if (patronymic == "Михаил") {      //  Михаил (для нестандартной генерации популярных имен делаем прямое сравнение)
+                    return patronymic.substring(0, patronymic.length - 2) + "й" + patronymic.slice(-1) + "ович";
+                 }  else if (patronymic == "Яков") {      // Яков
+                    return "Яковлевич";                 
+                 }  else if (patronymic == "Павел") {      // Павел
+                    return "Павлович";                 
+                 }  else if (patronymic == "Лев") {      // Лев
+                    return "Львович";                 
+                 } else  {      //  стандартная генерация - например: Александр, Иван, Борис, Вячеслав, Виктор
+                    return patronymic + "ович";                 
+                }      
+             }  else if (["ж","ш","ч","щ","ц"].indexOf(patronymic.slice(-1)) > -1){       // например: Януш, Жорж
+                return patronymic + "евич";                
+             }  else if (["а", "я"].indexOf(patronymic.slice(-1)) > -1){     // проверить ударение в окончании имени не можем, поэтому делаем прямое сравнение популярных имен      
+                if (patronymic == "Никита" || patronymic == "Илья"){         // Никита (исключение), Илья (ударное окончание)
+                    return patronymic.substring(0, patronymic.length - 1) + "ич";
+                 } else if (patronymic == "Данила" || patronymic == "Ерема") {       // безударные
+                    return patronymic.substring(0, patronymic.length - 1) + "ович";                 
+                }                                                   
+             } else if (patronymic.slice(-1) == "ь"){      // например: Игорь, Рамиль
+                return patronymic.substring(0, patronymic.length - 1) + "евич";
+             } else if (patronymic.slice(-2) == "ий"){
+                if ((["и","е","а","о","у","ы","ю","Ю"].indexOf(patronymic.slice(-4,-3)) > -1)){       // например: Василий, Юрий, Юлий
+                    return patronymic.substring(0, patronymic.length - 2) + "ьевич";
+                 } else {        // например: Дмитрий
+                    return patronymic.substring(0, patronymic.length - 1) + "евич";                 
+                }
+             } else if (["ей","ай","яй","эй","ый","ой","уй","юй"].indexOf(patronymic.slice(-2)) > -1){        // например: Сергей, Николай
+                    return patronymic.substring(0, patronymic.length - 1) + "евич";        
+            // другие проверки делать не будем, т.к. не можем определить ударение в окончании имен. Популярные уже вошли в проверку        
+             } else {           // если имя не вошло ни в одно из условий, возвращаем отчество по умолчанию
+                return "Владимирович";
+             }  
     },  
+
 
     // ПРОФЕССИЯ 
     // Добавлена профессия, есть её связь с полом
@@ -235,7 +271,20 @@ const personGenerator = {
         this.person.avatar = this.randomAvatar();
         this.person.firstName = this.randomFirstName();
         this.person.surname = this.randomSurname();     
-        this.person.patronymic = this.randomPatronymic(); 
+        this.person.patronymic = this.randomPatronymic();         
+
+            // тут делаем проверку на гендер, если "жен." - перезаписываем отчество
+            // при этом надо сделать проверку на нестандартные отчества, НЕ заканчивающиеся на "-вич" - это Никита и Илья)
+            if (this.person.gender == this.GENDER_FEMALE) { 
+                if (this.person.patronymic == "Никитич") {
+                    this.person.patronymic = "Никитична";
+                } else if (this.person.patronymic == "Ильич") {
+                    this.person.patronymic = "Ильинична";
+                } else {
+                    this.person.patronymic = this.person.patronymic.substring(0, this.person.patronymic.length - 2) + "на";
+                }               
+            }  
+
         this.person.profession = this.randomProfession();
 
         this.person.yearOfBirth = this.randomYearOfBirth();
